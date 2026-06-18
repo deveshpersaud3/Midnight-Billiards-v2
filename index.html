@@ -305,12 +305,180 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LANDING SCREEN ── */
+#landingScreen{background:var(--bg-dark);flex-direction:column;overflow:hidden;align-items:center;justify-content:center}
+.land-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(26,74,46,0.55) 0%,transparent 65%),radial-gradient(ellipse 40% 30% at 15% 15%,rgba(201,168,76,0.08) 0%,transparent 55%),linear-gradient(180deg,#030504,#060908);pointer-events:none;z-index:0}
+.land-parts{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.lp{position:absolute;border-radius:50%;background:var(--gold);opacity:0;animation:lpF var(--d,6s) var(--dl,0s) ease-in-out infinite}
+@keyframes lpF{0%{opacity:0;transform:translateY(0) scale(0)}20%{opacity:.5}80%{opacity:.15}100%{opacity:0;transform:translateY(-110px) scale(1.4)}}
+.land-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;padding:28px 20px;text-align:center;max-width:460px;width:100%}
+.hero-ball{width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#5a5a5a,#1a1a1a 40%,#000);box-shadow:0 0 0 4px rgba(40,40,40,.9),0 0 80px rgba(201,168,76,.42),0 0 160px rgba(201,168,76,.12),inset 0 -12px 36px rgba(0,0,0,.9),inset 6px 6px 18px rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:#f0e8d0;animation:hFloat 4s ease-in-out infinite;position:relative}
+.hero-ball::after{content:'';position:absolute;width:110px;height:110px;border-radius:50%;border:1px solid rgba(201,168,76,.22);animation:hRim 4s ease-in-out infinite}
+.hero-ball::before{content:'';position:absolute;width:126px;height:126px;border-radius:50%;border:1px solid rgba(201,168,76,.08);animation:hRim 4s ease-in-out infinite .5s}
+@keyframes hFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
+@keyframes hRim{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.9;transform:scale(1.08)}}
+.land-title{font-family:'Cinzel',serif;font-size:clamp(26px,6vw,50px);font-weight:900;letter-spacing:5px;background:linear-gradient(145deg,#fff 0%,var(--gold-bright) 20%,var(--gold-glow) 50%,var(--gold) 75%,var(--gold-dim) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 28px rgba(201,168,76,.45));line-height:1.1}
+.land-tag{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--text-dim);margin-top:-6px}
+.land-feats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.lf{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim)}
+.lfi{font-size:20px;filter:drop-shadow(0 0 6px rgba(201,168,76,.35))}
+.land-pills{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:380px}
+.lpill{padding:3px 8px;border-radius:12px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.14);font-size:8px;letter-spacing:1.5px;color:var(--text-dim)}
+.land-btns{display:flex;flex-direction:column;gap:9px;width:100%;max-width:320px}
+.lbtn{width:100%;padding:13px 28px;border-radius:var(--radius);font-family:'Cinzel',serif;font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:var(--transition);outline:none;border:none}
+.lbtn-gold{background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.07));border:1px solid var(--gold);color:var(--gold-bright);box-shadow:0 0 28px rgba(201,168,76,.14),0 6px 20px rgba(0,0,0,.4)}
+.lbtn-gold:hover{background:linear-gradient(135deg,rgba(201,168,76,.34),rgba(201,168,76,.14));box-shadow:0 0 48px rgba(201,168,76,.28),0 10px 28px rgba(0,0,0,.5);transform:translateY(-2px);color:#fff}
+.lbtn-outline{background:transparent;border:1px solid rgba(201,168,76,.26);color:var(--gold-dim)}
+.lbtn-outline:hover{border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.05);transform:translateY(-1px)}
+.lbtn-ghost{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text-dim)}
+.lbtn-ghost:hover{border-color:rgba(255,255,255,.24);color:var(--text-main)}
+.ldiv{display:flex;align-items:center;gap:8px;width:100%;max-width:320px}
+.ldiv::before,.ldiv::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.13)}
+.ldiv span{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
+.land-foot{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ── AUTH SCREEN ── */
+#authScreen{background:var(--bg-dark);flex-direction:column;align-items:center;justify-content:center;overflow-y:auto}
+.auth-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(26,74,46,.28) 0%,transparent 70%),linear-gradient(180deg,#030504,#060908);pointer-events:none;z-index:0}
+.auth-card{position:relative;z-index:2;background:linear-gradient(160deg,rgba(18,30,22,.98),rgba(10,16,14,.99));border:1px solid rgba(201,168,76,.22);border-radius:var(--radius-lg);padding:26px 22px;width:100%;max-width:400px;box-shadow:0 0 80px rgba(201,168,76,.08),0 40px 80px rgba(0,0,0,.7);animation:cardIn .4s cubic-bezier(.34,1.56,.64,1) both;display:flex;flex-direction:column;gap:14px;margin:16px}
+.auth-hdr{display:flex;flex-direction:column;align-items:center;gap:5px}
+.auth-ball{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#4a4a4a,#111 48%,#000);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:#f0e8d0;box-shadow:0 0 28px rgba(201,168,76,.22)}
+.auth-title{font-family:'Cinzel',serif;font-size:19px;font-weight:900;color:var(--gold-bright);letter-spacing:2px}
+.auth-sub{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim)}
+.auth-tabs{display:flex;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-sm);padding:3px;gap:3px}
+.auth-tab{flex:1;padding:7px;border:none;border-radius:6px;background:transparent;color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:var(--transition)}
+.auth-tab.active{background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.06));color:var(--gold-bright);border:1px solid rgba(201,168,76,.28)}
+.auth-form{display:flex;flex-direction:column;gap:10px}
+.auth-lbl{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px;display:block}
+.auth-inp{width:100%;padding:10px 13px;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.14);border-radius:var(--radius-sm);color:var(--text-main);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;outline:none;transition:var(--transition)}
+.auth-inp:focus{border-color:rgba(201,168,76,.44);background:rgba(201,168,76,.04);box-shadow:0 0 0 2px rgba(201,168,76,.07)}
+.auth-inp::placeholder{color:var(--text-muted);font-weight:400}
+.auth-err{font-size:10px;color:#ff6b6b;text-align:center;min-height:13px;letter-spacing:.5px}
+.auth-btn{width:100%;padding:11px;background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.06));border:1px solid var(--gold-dim);border-radius:var(--radius-sm);color:var(--gold-bright);font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:var(--transition);outline:none}
+.auth-btn:hover{border-color:var(--gold);box-shadow:0 0 22px rgba(201,168,76,.2);transform:translateY(-1px);color:#fff}
+.auth-guest{width:100%;padding:9px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:var(--transition);outline:none}
+.auth-guest:hover{border-color:rgba(255,255,255,.24);color:var(--text-main)}
+.auth-back{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius-sm);color:var(--text-dim);font-size:10px;font-weight:600;padding:5px 11px;cursor:pointer;transition:var(--transition);font-family:'Rajdhani',sans-serif;letter-spacing:1px;z-index:3}
+.auth-back:hover{color:var(--text-main);border-color:rgba(255,255,255,.26)}
+.auth-adiv{display:flex;align-items:center;gap:8px}
+.auth-adiv::before,.auth-adiv::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+.auth-adiv span{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)}
+.auth-rem{display:flex;align-items:center;gap:8px;cursor:pointer}
+.auth-rem input{accent-color:var(--gold);width:13px;height:13px}
+.auth-rem span{font-size:9px;letter-spacing:1px;color:var(--text-dim)}
+
+/* ── ACCOUNT INDICATOR ── */
+.acct-row{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:580px}
+.acct-ind{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+.acct-dot{width:5px;height:5px;border-radius:50%;background:var(--neon-green);box-shadow:0 0 5px var(--neon-green)}
+.acct-dot.guest{background:var(--text-muted);box-shadow:none}
+.sign-out-btn{background:transparent;border:1px solid rgba(255,80,80,.18);border-radius:6px;color:rgba(255,110,110,.45);font-family:'Rajdhani',sans-serif;font-size:8px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;cursor:pointer;transition:var(--transition)}
+.sign-out-btn:hover{border-color:rgba(255,80,80,.45);color:rgba(255,110,110,.9)}
+
+/* ── IMPROVED PROFILE BAR ── */
+.profile-bar{display:flex;align-items:center;gap:12px;width:100%;max-width:580px;padding:11px 15px;background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(201,168,76,.02));border:1px solid rgba(201,168,76,.17);border-radius:var(--radius);cursor:pointer;transition:var(--transition);box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.profile-bar:hover{border-color:rgba(201,168,76,.36);box-shadow:0 4px 20px rgba(201,168,76,.1),0 2px 12px rgba(0,0,0,.4)}
+.xp-mini-bar{width:100%;height:2px;background:rgba(255,255,255,.05);border-radius:1px;overflow:hidden;margin-top:3px}
+.xp-mini-fill{height:100%;background:linear-gradient(90deg,var(--neon-blue),var(--gold));border-radius:1px;transition:width .8s ease}
+
+/* ── IMPROVED BUTTONS ── */
+.btn-primary{width:100%;padding:13px 28px;background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.04));border:1px solid rgba(201,168,76,.38);border-radius:var(--radius);color:var(--gold-glow);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:var(--transition);outline:none}
+.btn-primary:hover{border-color:var(--gold-bright);box-shadow:0 0 30px rgba(201,168,76,.24),0 8px 24px rgba(0,0,0,.5);transform:translateY(-2px);color:#fff}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary.ghost{background:transparent;color:var(--text-dim);border-color:rgba(255,255,255,.11)}
+.btn-primary.ghost:hover{color:var(--text-main);border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.04)}
+
+/* ── NAV BTNS IMPROVED ── */
+.nav-btn{flex:1;padding:8px 4px;background:linear-gradient(180deg,rgba(28,48,32,.7),rgba(12,18,14,.85));border:1px solid rgba(255,255,255,.07);border-radius:var(--radius-sm);color:var(--text-dim);font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:var(--transition);display:flex;flex-direction:column;align-items:center;gap:3px}
+.nav-btn:hover{color:var(--gold-bright);border-color:rgba(201,168,76,.34);background:linear-gradient(180deg,rgba(201,168,76,.09),rgba(201,168,76,.03));transform:translateY(-1px)}
+.nav-btn .nb-icon{font-size:17px}
+.nav-btn:hover .nb-icon{filter:drop-shadow(0 0 5px rgba(201,168,76,.4))}
+
+/* ── MODE BTNS IMPROVED ── */
+.mode-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px 9px;background:linear-gradient(180deg,rgba(30,56,38,.85),rgba(14,24,18,.95));border:1px solid rgba(201,168,76,.1);border-radius:11px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;will-change:transform}
+.mode-btn:hover{border-color:rgba(201,168,76,.42);transform:translateY(-3px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,.55),0 0 14px rgba(201,168,76,.1)}
+.mode-btn.active{border-color:rgba(201,168,76,.68);background:linear-gradient(180deg,rgba(201,168,76,.16),rgba(201,168,76,.05));box-shadow:0 0 16px rgba(201,168,76,.17),inset 0 1px 0 rgba(201,168,76,.18)}
+
+/* ── HUD IMPROVEMENTS ── */
+#hud{background:linear-gradient(180deg,rgba(4,8,5,.9),rgba(4,8,5,.55));border-bottom:1px solid rgba(201,168,76,.17)}
+#bottomBar{background:linear-gradient(0deg,rgba(4,8,5,.9),rgba(4,8,5,.55));border-top:1px solid rgba(201,168,76,.12)}
+
 </style>
 </head>
 <body>
 
+<!-- ═══ LANDING SCREEN ═══ -->
+<div id="landingScreen" class="screen active">
+  <div class="land-bg"></div>
+  <div class="land-parts" id="landParts"></div>
+  <div class="land-content">
+    <div class="hero-ball">8</div>
+    <div>
+      <h1 class="land-title">Midnight Billiards</h1>
+      <p class="land-tag">Premium Pool &amp; Snooker</p>
+    </div>
+    <div class="land-feats">
+      <div class="lf"><span class="lfi">🎱</span>9 Modes</div>
+      <div class="lf"><span class="lfi">🤖</span>AI Rival</div>
+      <div class="lf"><span class="lfi">🏆</span>Achievements</div>
+      <div class="lf"><span class="lfi">🏪</span>Shop</div>
+      <div class="lf"><span class="lfi">📋</span>Challenges</div>
+    </div>
+    <div class="land-pills">
+      <span class="lpill">8-Ball</span><span class="lpill">9-Ball</span><span class="lpill">10-Ball</span>
+      <span class="lpill">Snooker</span><span class="lpill">Straight Pool</span><span class="lpill">One Pocket</span>
+      <span class="lpill">Bank Pool</span><span class="lpill">Blackball</span><span class="lpill">7-Ball</span>
+    </div>
+    <div class="land-btns">
+      <button class="lbtn lbtn-gold" id="landSignIn">Sign In</button>
+      <button class="lbtn lbtn-outline" id="landSignUp">Create Account</button>
+      <div class="ldiv"><span>or</span></div>
+      <button class="lbtn lbtn-ghost" id="landGuest">Play as Guest</button>
+    </div>
+    <div class="land-foot">Free to play · No ads · Local saves</div>
+  </div>
+</div>
+
+<!-- ═══ AUTH SCREEN ═══ -->
+<div id="authScreen" class="screen">
+  <div class="auth-bg"></div>
+  <button class="auth-back" id="authBack">← Back</button>
+  <div class="auth-card">
+    <div class="auth-hdr">
+      <div class="auth-ball">8</div>
+      <div class="auth-title">Midnight Billiards</div>
+      <div class="auth-sub" id="authSub">Welcome back</div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="in" id="atIn">Sign In</button>
+      <button class="auth-tab" data-tab="up" id="atUp">Sign Up</button>
+    </div>
+    <!-- SIGN IN -->
+    <div class="auth-form" id="afIn">
+      <div><label class="auth-lbl">Username</label><input class="auth-inp" id="siUser" type="text" placeholder="Your username" autocomplete="username"/></div>
+      <div><label class="auth-lbl">Password</label><input class="auth-inp" id="siPass" type="password" placeholder="Your password" autocomplete="current-password"/></div>
+      <label class="auth-rem"><input type="checkbox" id="siRem" checked/><span>Remember me</span></label>
+      <div class="auth-err" id="siErr"></div>
+      <button class="auth-btn" id="doSignIn">Sign In</button>
+      <div class="auth-adiv"><span>or</span></div>
+      <button class="auth-guest" id="siGuest">Continue as Guest</button>
+    </div>
+    <!-- SIGN UP -->
+    <div class="auth-form" id="afUp" style="display:none">
+      <div><label class="auth-lbl">Display Name</label><input class="auth-inp" id="suUser" type="text" placeholder="Pick a name (2-20 chars)" maxlength="20" autocomplete="username"/></div>
+      <div><label class="auth-lbl">Email (optional)</label><input class="auth-inp" id="suEmail" type="email" placeholder="your@email.com" autocomplete="email"/></div>
+      <div><label class="auth-lbl">Password</label><input class="auth-inp" id="suPass" type="password" placeholder="Min 6 characters" autocomplete="new-password"/></div>
+      <div class="auth-err" id="suErr"></div>
+      <button class="auth-btn" id="doSignUp">Create Account</button>
+      <div class="auth-adiv"><span>or</span></div>
+      <button class="auth-guest" id="suGuest">Continue as Guest</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ START SCREEN ═══ -->
-<div id="startScreen" class="screen active">
+<div id="startScreen" class="screen">
   <div class="start-bg"></div>
   <div class="start-content">
     <div class="logo-wrap">
@@ -319,6 +487,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
       <p class="game-subtitle">Premium Pool &amp; Snooker</p>
     </div>
 
+    <!-- Account Row -->
+    <div class="acct-row">
+      <div class="acct-ind"><div class="acct-dot guest" id="acctDot"></div><span id="acctTxt">Guest</span></div>
+      <button class="sign-out-btn" id="signOutBtn" style="display:none">Sign Out</button>
+    </div>
     <!-- Profile Bar -->
     <div class="profile-bar" id="profileBarBtn">
       <div class="profile-avatar" id="startAvatar">🎱</div>
@@ -334,6 +507,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
       <div class="profile-right">
         <div class="coin-badge">🪙 <span id="startCoins">500</span></div>
         <div class="xp-mini">LV <span id="startLevel">1</span> · XP <span id="startXP">0</span></div>
+        <div class="xp-mini-bar"><div class="xp-mini-fill" id="startXPBar" style="width:0%"></div></div>
       </div>
     </div>
 
@@ -1153,7 +1327,7 @@ function drawBall(b){
 function lightenColor(hex,amount){const num=parseInt(hex.slice(1),16);return`rgb(${Math.min(255,(num>>16)+amount)},${Math.min(255,((num>>8)&0xff)+amount)},${Math.min(255,(num&0xff)+amount)})`;}
 function darkenColor(hex,amount){const num=parseInt(hex.slice(1),16);return`rgb(${Math.max(0,(num>>16)-amount)},${Math.max(0,((num>>8)&0xff)-amount)},${Math.max(0,(num&0xff)-amount)})`;}
 
-// ── ADVANCED AIM LINE ──
+// ── IMPROVED AIM LINE ──
 function drawAimLine(){
   if(state.ballsMoving||state.placingBall)return;
   if(state.gameMode==='ai'&&state.currentPlayer===1)return;
@@ -1161,62 +1335,102 @@ function drawAimLine(){
   const mx=state.mousePos.x,my=state.mousePos.y;
   const angle=Math.atan2(my-cue.y,mx-cue.x);state.aimAngle=angle;
   const cosA=Math.cos(angle),sinA=Math.sin(angle);
-
   ctx.save();
 
-  // Primary aim line — ray cast to wall or ball
-  let lineEnd=rayCast(cue.x,cue.y,cosA,sinA,350);
-  // Draw dashed aim line
-  ctx.strokeStyle='rgba(201,168,76,0.55)';ctx.lineWidth=1.2;ctx.setLineDash([8,6]);
-  ctx.beginPath();ctx.moveTo(cue.x,cue.y);ctx.lineTo(lineEnd.x,lineEnd.y);ctx.stroke();ctx.setLineDash([]);
-
-  // Ghost ball at first contact
-  const ghostX=cue.x+cosA*(BALL_RADIUS*2+1),ghostY=cue.y+sinA*(BALL_RADIUS*2+1);
-  ctx.strokeStyle='rgba(201,168,76,0.35)';ctx.lineWidth=1.2;ctx.setLineDash([3,3]);
-  ctx.beginPath();ctx.arc(ghostX,ghostY,BALL_RADIUS,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-
-  // Object ball prediction — find first intersected ball
+  // Find first ball hit
   let hitBall=null,hitDist=Infinity;
   state.balls.forEach(b=>{
     if(!b.active||b.pocketed||b===cue)return;
-    const dx=b.x-cue.x,dy=b.y-cue.y;
-    const proj=dx*cosA+dy*sinA;if(proj<0)return;
+    const dx=b.x-cue.x,dy=b.y-cue.y,proj=dx*cosA+dy*sinA;
+    if(proj<BALL_RADIUS)return;
     const perp=Math.abs(dy*cosA-dx*sinA);
     if(perp<BALL_RADIUS*2&&proj<hitDist){hitDist=proj;hitBall=b;}
   });
+
+  // Aim line to first contact or wall
+  const lineEnd=hitBall?{x:hitBall.x-cosA*BALL_RADIUS*2,y:hitBall.y-sinA*BALL_RADIUS*2}:rayCast(cue.x,cue.y,cosA,sinA,420);
+
+  // Glow behind line
+  ctx.strokeStyle='rgba(201,168,76,0.1)';ctx.lineWidth=7;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(cue.x,cue.y);ctx.lineTo(lineEnd.x,lineEnd.y);ctx.stroke();
+  // Main line
+  ctx.strokeStyle='rgba(201,168,76,0.62)';ctx.lineWidth=1.5;ctx.setLineDash([9,5]);
+  ctx.beginPath();ctx.moveTo(cue.x,cue.y);ctx.lineTo(lineEnd.x,lineEnd.y);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Arrowhead when no ball hit
+  if(!hitBall){
+    const ax=lineEnd.x,ay=lineEnd.y,al=7,aa=0.4;
+    ctx.fillStyle='rgba(201,168,76,0.38)';
+    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax-Math.cos(angle-aa)*al,ay-Math.sin(angle-aa)*al);ctx.lineTo(ax-Math.cos(angle+aa)*al,ay-Math.sin(angle+aa)*al);ctx.closePath();ctx.fill();
+  }
+
   if(hitBall){
-    // Ghost ball at contact
     const gx=hitBall.x-cosA*BALL_RADIUS*2,gy=hitBall.y-sinA*BALL_RADIUS*2;
-    ctx.strokeStyle='rgba(255,220,100,0.45)';ctx.lineWidth=1;ctx.setLineDash([3,4]);
-    ctx.beginPath();ctx.arc(gx,gy,BALL_RADIUS,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    // Ghost ball at contact — glow
+    ctx.shadowColor='rgba(255,220,100,0.4)';ctx.shadowBlur=10;
+    ctx.strokeStyle='rgba(255,220,100,0.65)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(gx,gy,BALL_RADIUS,0,Math.PI*2);ctx.stroke();
+    ctx.shadowBlur=0;
+    // Contact dot
+    ctx.fillStyle='rgba(255,220,100,0.75)';ctx.beginPath();ctx.arc(gx,gy,3,0,Math.PI*2);ctx.fill();
+
     // Object ball path
-    const nx=(hitBall.x-gx),ny=(hitBall.y-gy);const nl=Math.hypot(nx,ny);
-    if(nl>0){const nnx=nx/nl,nny=ny/nl;const objEnd=rayCast(hitBall.x,hitBall.y,nnx,nny,200);
-      ctx.strokeStyle='rgba(255,220,100,0.25)';ctx.lineWidth=1;ctx.setLineDash([5,5]);
-      ctx.beginPath();ctx.moveTo(hitBall.x,hitBall.y);ctx.lineTo(objEnd.x,objEnd.y);ctx.stroke();ctx.setLineDash([]);}
-    // Cue ball deflection
-    const dvx=nx/nl,dvy=ny/nl;const imp=cosA*dvx+sinA*dvy;
-    const cbvx=cosA-imp*dvx,cbvy=sinA-imp*dvy;const cbl=Math.hypot(cbvx,cbvy);
-    if(cbl>0.01){const cbEnd=rayCast(gx,gy,cbvx/cbl,cbvy/cbl,180);
-      ctx.strokeStyle='rgba(150,200,255,0.3)';ctx.lineWidth=1;ctx.setLineDash([4,6]);
-      ctx.beginPath();ctx.moveTo(gx,gy);ctx.lineTo(cbEnd.x,cbEnd.y);ctx.stroke();ctx.setLineDash([]);}
+    const nx=hitBall.x-gx,ny=hitBall.y-gy,nl=Math.hypot(nx,ny);
+    if(nl>0){
+      const nnx=nx/nl,nny=ny/nl;
+      const objEnd=rayCast(hitBall.x,hitBall.y,nnx,nny,240);
+      ctx.strokeStyle='rgba(255,220,100,0.09)';ctx.lineWidth=6;ctx.setLineDash([]);
+      ctx.beginPath();ctx.moveTo(hitBall.x,hitBall.y);ctx.lineTo(objEnd.x,objEnd.y);ctx.stroke();
+      ctx.strokeStyle='rgba(255,220,100,0.34)';ctx.lineWidth=1.3;ctx.setLineDash([6,5]);
+      ctx.beginPath();ctx.moveTo(hitBall.x,hitBall.y);ctx.lineTo(objEnd.x,objEnd.y);ctx.stroke();
+      ctx.setLineDash([]);
+      // Arrow mid-path
+      const oa=Math.atan2(nny,nnx),omx=(hitBall.x+objEnd.x)/2,omy=(hitBall.y+objEnd.y)/2;
+      ctx.fillStyle='rgba(255,220,100,0.32)';ctx.beginPath();ctx.moveTo(omx+Math.cos(oa)*6,omy+Math.sin(oa)*6);ctx.lineTo(omx+Math.cos(oa+2.4)*5,omy+Math.sin(oa+2.4)*5);ctx.lineTo(omx+Math.cos(oa-2.4)*5,omy+Math.sin(oa-2.4)*5);ctx.closePath();ctx.fill();
+
+      // Pocket highlight
+      let np=null,nd=Infinity;
+      state.pockets.forEach(p=>{const dx=p.x-hitBall.x,dy=p.y-hitBall.y,pr=dx*nnx+dy*nny,pe=Math.abs(dy*nnx-dx*nny);if(pr>0&&pe<POCKET_RADIUS*2.2&&pr<nd){nd=pr;np=p;}});
+      if(np&&nd<190){const al=Math.max(0,1-nd/190)*0.6;ctx.strokeStyle=`rgba(46,204,113,${al})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(np.x,np.y,POCKET_RADIUS+5,0,Math.PI*2);ctx.stroke();}
+    }
+
+    // Cue-ball deflection
+    const dvx=nx/nl,dvy=ny/nl,imp=cosA*dvx+sinA*dvy;
+    const cbvx=cosA-imp*dvx,cbvy=sinA-imp*dvy,cbl=Math.hypot(cbvx,cbvy);
+    if(cbl>0.01){
+      const cbEnd=rayCast(gx,gy,cbvx/cbl,cbvy/cbl,200);
+      ctx.strokeStyle='rgba(120,180,255,0.1)';ctx.lineWidth=5;ctx.setLineDash([]);
+      ctx.beginPath();ctx.moveTo(gx,gy);ctx.lineTo(cbEnd.x,cbEnd.y);ctx.stroke();
+      ctx.strokeStyle='rgba(120,180,255,0.4)';ctx.lineWidth=1.2;ctx.setLineDash([4,6]);
+      ctx.beginPath();ctx.moveTo(gx,gy);ctx.lineTo(cbEnd.x,cbEnd.y);ctx.stroke();
+      ctx.setLineDash([]);
+    }
   }
 
   // Cue stick
   if(state.isCharging){
-    const equippedCue=CUES.find(c=>c.id===profile.equippedCue)||CUES[0];
-    const cueLen=160,pullback=state.power*30;
-    const cueStart={x:cue.x-cosA*(BALL_RADIUS+pullback),y:cue.y-sinA*(BALL_RADIUS+pullback)};
-    const cueEnd={x:cueStart.x-cosA*cueLen,y:cueStart.y-sinA*cueLen};
-    const cueGrd=ctx.createLinearGradient(cueStart.x,cueStart.y,cueEnd.x,cueEnd.y);
-    cueGrd.addColorStop(0,equippedCue.accent||'#c9a84c');
-    cueGrd.addColorStop(0.15,equippedCue.color||'#8B5E1A');
-    cueGrd.addColorStop(0.7,'#8B5E1A');cueGrd.addColorStop(1,'#5a3010');
-    ctx.strokeStyle=cueGrd;ctx.lineWidth=6;ctx.lineCap='round';ctx.setLineDash([]);
-    ctx.beginPath();ctx.moveTo(cueStart.x,cueStart.y);ctx.lineTo(cueEnd.x,cueEnd.y);ctx.stroke();
+    const eq=CUES.find(c=>c.id===profile.equippedCue)||CUES[0];
+    const cueLen=165,pull=state.power*34;
+    const cs={x:cue.x-cosA*(BALL_RADIUS+1+pull),y:cue.y-sinA*(BALL_RADIUS+1+pull)};
+    const ce={x:cs.x-cosA*cueLen,y:cs.y-sinA*cueLen};
+    // Shadow
+    ctx.strokeStyle='rgba(0,0,0,0.55)';ctx.lineWidth=9;ctx.lineCap='round';ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(cs.x+1,cs.y+2);ctx.lineTo(ce.x+1,ce.y+2);ctx.stroke();
+    // Body gradient
+    const cg=ctx.createLinearGradient(cs.x,cs.y,ce.x,ce.y);
+    cg.addColorStop(0,eq.accent||'#c9a84c');cg.addColorStop(0.12,eq.color||'#8B5E1A');
+    cg.addColorStop(0.55,'#7a5018');cg.addColorStop(1,'#3a1a08');
+    ctx.strokeStyle=cg;ctx.lineWidth=7;ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(cs.x,cs.y);ctx.lineTo(ce.x,ce.y);ctx.stroke();
     // Ferrule
-    ctx.strokeStyle=equippedCue.accent||'#c9a84c';ctx.lineWidth=8;ctx.lineCap='round';
-    ctx.beginPath();ctx.moveTo(cueStart.x,cueStart.y);ctx.lineTo(cueStart.x-cosA*5,cueStart.y-sinA*5);ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,0.28)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(cs.x,cs.y);ctx.lineTo(cs.x-cosA*8,cs.y-sinA*8);ctx.stroke();
+    // Wrap stripe
+    const mx2=cs.x-cosA*(cueLen*.35),my2=cs.y-sinA*(cueLen*.35);
+    ctx.strokeStyle=eq.accent||'#c9a84c';ctx.lineWidth=3;ctx.globalAlpha=.45;
+    ctx.beginPath();ctx.moveTo(mx2,my2);ctx.lineTo(mx2-cosA*12,my2-sinA*12);ctx.stroke();
+    ctx.globalAlpha=1;
   }
   ctx.restore();
 }
@@ -1604,9 +1818,106 @@ function updateStartScreen(){
   document.getElementById('equippedCueName').textContent=cue.name;
   document.getElementById('equippedCueRarity').textContent=cue.rarity.charAt(0).toUpperCase()+cue.rarity.slice(1);
   document.getElementById('equippedCueRarity').className=`equipped-rarity rarity-${cue.rarity}`;
+  const _xpPct=Math.min(100,(profile.xp/XP_PER_LEVEL(profile.level))*100);
+  const _xpBar=document.getElementById('startXPBar');if(_xpBar)_xpBar.style.width=_xpPct+'%';
+  updateAcctUI();
 }
 
 // ── INIT ──
+
+// ── AUTH / ACCOUNT SYSTEM ──
+const AUTH_KEY='mb_auth_v1';const ACCS_KEY='mb_accounts_v1';
+function loadAccs(){try{const d=localStorage.getItem(ACCS_KEY);return d?JSON.parse(d):{}}catch(e){return{}}}
+function saveAccs(a){try{localStorage.setItem(ACCS_KEY,JSON.stringify(a));}catch(e){}}
+function loadAuth(){try{const d=localStorage.getItem(AUTH_KEY);return d?JSON.parse(d):{in:false,user:null,guest:true}}catch(e){return{in:false,user:null,guest:true}}}
+function saveAuth(s){try{localStorage.setItem(AUTH_KEY,JSON.stringify(s));}catch(e){}}
+let authSt=loadAuth();
+
+function updateAcctUI(){
+  const dot=document.getElementById('acctDot'),txt=document.getElementById('acctTxt'),sob=document.getElementById('signOutBtn');
+  if(!dot)return;
+  if(authSt.in&&!authSt.guest){dot.className='acct-dot';txt.textContent=authSt.user||'Player';if(sob)sob.style.display='block';}
+  else{dot.className='acct-dot guest';txt.textContent='Guest Mode';if(sob)sob.style.display='none';}
+}
+
+function goGuest(){
+  authSt={in:true,user:profile.username,guest:true};saveAuth(authSt);
+  showScreen('startScreen');updateStartScreen();updateAcctUI();
+  const today=new Date().toDateString();if(profile.dailyLastClaim!==today)setTimeout(()=>openDailyModal(),600);
+}
+
+function switchTab(t){
+  document.getElementById('afIn').style.display=t==='in'?'flex':'none';
+  document.getElementById('afUp').style.display=t==='up'?'flex':'none';
+  document.querySelectorAll('.auth-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  document.getElementById('authSub').textContent=t==='in'?'Welcome back':'Join the table';
+  document.getElementById('siErr').textContent='';document.getElementById('suErr').textContent='';
+}
+
+function doSignIn(){
+  const user=document.getElementById('siUser').value.trim();
+  const pass=document.getElementById('siPass').value;
+  const err=document.getElementById('siErr');
+  if(!user||!pass){err.textContent='Please fill in all fields.';return;}
+  const accs=loadAccs();const k=user.toLowerCase();
+  if(!accs[k]){err.textContent='Account not found.';return;}
+  if(accs[k].pw!==btoa(pass)){err.textContent='Incorrect password.';return;}
+  if(accs[k].prof)Object.assign(profile,accs[k].prof);
+  authSt={in:true,user:accs[k].name,guest:false};saveAuth(authSt);saveProfile();
+  showToast('🎱 Welcome back, '+authSt.user+'!');
+  showScreen('startScreen');updateStartScreen();updateAcctUI();
+  const today=new Date().toDateString();if(profile.dailyLastClaim!==today)setTimeout(()=>openDailyModal(),600);
+}
+
+function doSignUp(){
+  const user=document.getElementById('suUser').value.trim();
+  const pass=document.getElementById('suPass').value;
+  const email=document.getElementById('suEmail').value.trim();
+  const err=document.getElementById('suErr');
+  if(!user||user.length<2){err.textContent='Name must be 2+ characters.';return;}
+  if(!pass||pass.length<6){err.textContent='Password must be 6+ characters.';return;}
+  const accs=loadAccs();const k=user.toLowerCase();
+  if(accs[k]){err.textContent='Username taken. Try another.';return;}
+  profile.username=user;
+  accs[k]={name:user,email,pw:btoa(pass),prof:{...profile}};
+  saveAccs(accs);authSt={in:true,user,guest:false};saveAuth(authSt);saveProfile();
+  showToast('🎉 Welcome, '+user+'!');
+  showScreen('startScreen');updateStartScreen();updateAcctUI();
+  const today=new Date().toDateString();if(profile.dailyLastClaim!==today)setTimeout(()=>openDailyModal(),600);
+}
+
+function doSignOut(){
+  if(!authSt.guest&&authSt.user){const accs=loadAccs();const k=authSt.user.toLowerCase();if(accs[k]){accs[k].prof={...profile};saveAccs(accs);}}
+  authSt={in:false,user:null,guest:true};saveAuth(authSt);
+  showToast('Signed out.');showScreen('landingScreen');
+}
+
+function initLanding(){
+  // Particles
+  const p=document.getElementById('landParts');
+  if(p&&!p.children.length){for(let i=0;i<20;i++){const el=document.createElement('div');el.className='lp';el.style.cssText=`left:${Math.random()*100}%;top:${50+Math.random()*50}%;--d:${4+Math.random()*5}s;--dl:${Math.random()*4}s;width:${1+Math.random()*3}px;height:${1+Math.random()*3}px`;p.appendChild(el);}}
+  document.getElementById('landSignIn').onclick=()=>{switchTab('in');showScreen('authScreen');};
+  document.getElementById('landSignUp').onclick=()=>{switchTab('up');showScreen('authScreen');};
+  document.getElementById('landGuest').onclick=goGuest;
+}
+
+function initAuth(){
+  document.getElementById('authBack').onclick=()=>showScreen('landingScreen');
+  document.getElementById('atIn').onclick=()=>switchTab('in');
+  document.getElementById('atUp').onclick=()=>switchTab('up');
+  document.getElementById('doSignIn').onclick=doSignIn;
+  document.getElementById('doSignUp').onclick=doSignUp;
+  document.getElementById('siGuest').onclick=goGuest;
+  document.getElementById('suGuest').onclick=goGuest;
+  document.getElementById('signOutBtn').onclick=doSignOut;
+  ['siUser','siPass'].forEach(id=>{document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doSignIn();});});
+  ['suUser','suEmail','suPass'].forEach(id=>{document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doSignUp();});});
+}
+
+// Auto-save to account on saveProfile
+const _sp=saveProfile;
+saveProfile=function(){_sp();if(authSt&&!authSt.guest&&authSt.user){const accs=loadAccs();const k=authSt.user.toLowerCase();if(accs[k]){accs[k].prof={...profile};saveAccs(accs);}}};
+
 document.addEventListener('DOMContentLoaded',()=>{
   canvas=document.getElementById('poolCanvas');ctx=canvas.getContext('2d');
 
@@ -1674,6 +1985,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Resize
   let resizeTimer=null;
   window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(document.getElementById('gameScreen').classList.contains('active')&&!state.gameOver){const oldW=W,oldH=H,savedBalls=state.balls.map(b=>({...b}));setupTable();const scaleX=W/oldW,scaleY=H/oldH;state.balls=savedBalls.map(b=>({...b,x:b.x*scaleX,y:b.y*scaleY}));state.cueBall=state.balls.find(b=>b.num===0);}},80);});
+
+  // Landing + Auth init
+  initLanding();initAuth();updateAcctUI();
+  // Skip landing if already logged in
+  if(authSt&&authSt.in){showScreen('startScreen');updateStartScreen();}
 
   // Initialize
   refreshDailyChallenges();checkAllAchievements();updateStartScreen();
