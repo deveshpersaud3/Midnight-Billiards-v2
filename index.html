@@ -2103,15 +2103,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   // Landing + Auth init
   initLanding();initAuth();updateAcctUI();
-  // Skip landing if already logged in
-  if(authSt&&authSt.in){showScreen('startScreen');updateStartScreen();}
+  // Skip landing only if signed into a real account (guests still see Sign In/Sign Up/Guest choice)
+  if(authSt&&authSt.in&&!authSt.guest){showScreen('startScreen');updateStartScreen();}
 
   // Initialize
   refreshDailyChallenges();checkAllAchievements();updateStartScreen();
 
-  // Auto-show daily reward if not claimed today
+  // Auto-show daily reward if not claimed today (only for a real signed-in account already past landing; guests get theirs via goGuest)
   const today=new Date().toDateString();
-  if(profile.dailyLastClaim!==today)setTimeout(()=>openDailyModal(),800);
+  if(authSt&&authSt.in&&!authSt.guest&&profile.dailyLastClaim!==today)setTimeout(()=>openDailyModal(),800);
 });
 </script>
 </body>
