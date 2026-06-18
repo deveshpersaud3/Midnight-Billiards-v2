@@ -368,6 +368,39 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
 .auth-rem input{accent-color:var(--gold);width:13px;height:13px}
 .auth-rem span{font-size:9px;letter-spacing:1px;color:var(--text-dim)}
 
+/* Password strength meter */
+.pwd-strength-wrap{display:flex;flex-direction:column;gap:5px;margin-top:-2px}
+.pwd-bar-track{display:flex;gap:4px;height:4px}
+.pwd-bar-seg{flex:1;border-radius:2px;background:rgba(255,255,255,.08);transition:background .25s ease}
+.pwd-bar-seg.on-weak{background:var(--neon-red)}
+.pwd-bar-seg.on-fair{background:#e8a23a}
+.pwd-bar-seg.on-good{background:#d9c94a}
+.pwd-bar-seg.on-strong{background:var(--neon-green)}
+.pwd-strength-row{display:flex;align-items:center;justify-content:space-between}
+.pwd-strength-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+.pwd-strength-label.weak{color:var(--neon-red)}
+.pwd-strength-label.fair{color:#e8a23a}
+.pwd-strength-label.good{color:#d9c94a}
+.pwd-strength-label.strong{color:var(--neon-green)}
+.pwd-suggest-link{font-size:9px;letter-spacing:1px;color:var(--gold);background:none;border:none;cursor:pointer;text-decoration:underline;text-decoration-color:rgba(201,168,76,.35);padding:0;font-family:'Rajdhani',sans-serif;font-weight:600}
+.pwd-suggest-link:hover{color:var(--gold-bright)}
+
+/* Suggested password popover (Chrome-style) */
+.pwd-suggest-box{display:none;flex-direction:column;gap:8px;padding:11px 12px;background:linear-gradient(160deg,rgba(24,40,28,.98),rgba(12,18,15,.99));border:1px solid rgba(201,168,76,.3);border-radius:var(--radius-sm);box-shadow:0 10px 30px rgba(0,0,0,.5);animation:cardIn .25s cubic-bezier(.34,1.56,.64,1) both}
+.pwd-suggest-box.show{display:flex}
+.pwd-suggest-hdr{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim)}
+.pwd-suggest-pass{font-family:'Courier New',monospace;font-size:14px;letter-spacing:1px;color:var(--gold-bright);background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.16);border-radius:6px;padding:8px 10px;word-break:break-all;user-select:all}
+.pwd-suggest-actions{display:flex;gap:8px}
+.pwd-suggest-use{flex:1;padding:7px;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.08));border:1px solid var(--gold-dim);border-radius:6px;color:var(--gold-bright);font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:var(--transition)}
+.pwd-suggest-use:hover{border-color:var(--gold);color:#fff}
+.pwd-suggest-refresh{padding:7px 10px;background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:var(--text-dim);font-size:13px;cursor:pointer;transition:var(--transition)}
+.pwd-suggest-refresh:hover{border-color:rgba(255,255,255,.3);color:var(--text-main)}
+
+/* In-game account access button */
+.btn-acct-game{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.08))!important;border-color:var(--gold-dim)!important;color:var(--gold-glow)!important}
+.acct-ind.clickable{cursor:pointer;transition:var(--transition)}
+.acct-ind.clickable:hover{opacity:0.8}
+
 /* ── ACCOUNT INDICATOR ── */
 .acct-row{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:580px}
 .acct-ind{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
@@ -469,6 +502,26 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
       <div><label class="auth-lbl">Display Name</label><input class="auth-inp" id="suUser" type="text" placeholder="Pick a name (2-20 chars)" maxlength="20" autocomplete="username"/></div>
       <div><label class="auth-lbl">Email (optional)</label><input class="auth-inp" id="suEmail" type="email" placeholder="your@email.com" autocomplete="email"/></div>
       <div><label class="auth-lbl">Password</label><input class="auth-inp" id="suPass" type="password" placeholder="Min 6 characters" autocomplete="new-password"/></div>
+      <div class="pwd-strength-wrap">
+        <div class="pwd-bar-track">
+          <div class="pwd-bar-seg" id="pwSeg1"></div>
+          <div class="pwd-bar-seg" id="pwSeg2"></div>
+          <div class="pwd-bar-seg" id="pwSeg3"></div>
+          <div class="pwd-bar-seg" id="pwSeg4"></div>
+        </div>
+        <div class="pwd-strength-row">
+          <span class="pwd-strength-label" id="pwStrengthLabel">Enter a password</span>
+          <button type="button" class="pwd-suggest-link" id="suSuggestBtn">🔑 Suggest strong password</button>
+        </div>
+      </div>
+      <div class="pwd-suggest-box" id="pwSuggestBox">
+        <div class="pwd-suggest-hdr"><span>🛡️</span><span>Suggested strong password</span></div>
+        <div class="pwd-suggest-pass" id="pwSuggestText">—</div>
+        <div class="pwd-suggest-actions">
+          <button type="button" class="pwd-suggest-use" id="pwUseSuggest">Use this password</button>
+          <button type="button" class="pwd-suggest-refresh" id="pwRefreshSuggest" title="Generate another">↻</button>
+        </div>
+      </div>
       <div class="auth-err" id="suErr"></div>
       <button class="auth-btn" id="doSignUp">Create Account</button>
       <div class="auth-adiv"><span>or</span></div>
@@ -489,7 +542,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
 
     <!-- Account Row -->
     <div class="acct-row">
-      <div class="acct-ind"><div class="acct-dot guest" id="acctDot"></div><span id="acctTxt">Guest</span></div>
+      <div class="acct-ind clickable" id="acctRowBtn"><div class="acct-dot guest" id="acctDot"></div><span id="acctTxt">Guest</span></div>
       <button class="sign-out-btn" id="signOutBtn" style="display:none">Sign Out</button>
     </div>
     <!-- Profile Bar -->
@@ -606,6 +659,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-dark);font-
   <div id="bottomBar">
     <button class="btn-sm" id="btnMenu">Menu</button>
     <div class="status-msg" id="statusMsg">Aim and shoot!</div>
+    <button class="btn-sm btn-acct-game" id="btnAcctGame" style="display:none">Sign In</button>
     <button class="btn-sm" id="btnRulesGame">Rules</button>
     <button class="btn-sm" id="btnSoundGame">🔊</button>
   </div>
@@ -1835,10 +1889,13 @@ let authSt=loadAuth();
 
 function updateAcctUI(){
   const dot=document.getElementById('acctDot'),txt=document.getElementById('acctTxt'),sob=document.getElementById('signOutBtn');
+  const acctGameBtn=document.getElementById('btnAcctGame');
   if(!dot)return;
-  if(authSt.in&&!authSt.guest){dot.className='acct-dot';txt.textContent=authSt.user||'Player';if(sob)sob.style.display='block';}
-  else{dot.className='acct-dot guest';txt.textContent='Guest Mode';if(sob)sob.style.display='none';}
+  if(authSt.in&&!authSt.guest){dot.className='acct-dot';txt.textContent=authSt.user||'Player';if(sob)sob.style.display='block';if(acctGameBtn)acctGameBtn.style.display='none';}
+  else{dot.className='acct-dot guest';txt.textContent='Guest Mode';if(sob)sob.style.display='none';if(acctGameBtn)acctGameBtn.style.display='inline-block';}
 }
+
+function openAuthFromGuest(){switchTab('in');showScreen('authScreen');}
 
 function goGuest(){
   authSt={in:true,user:profile.username,guest:true};saveAuth(authSt);
@@ -1852,6 +1909,48 @@ function switchTab(t){
   document.querySelectorAll('.auth-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
   document.getElementById('authSub').textContent=t==='in'?'Welcome back':'Join the table';
   document.getElementById('siErr').textContent='';document.getElementById('suErr').textContent='';
+}
+
+// ── PASSWORD STRENGTH & SUGGESTION ──
+function scorePassword(pw){
+  if(!pw)return 0;
+  let score=0;
+  if(pw.length>=6)score++;
+  if(pw.length>=10)score++;
+  if(/[A-Z]/.test(pw)&&/[a-z]/.test(pw))score++;
+  if(/[0-9]/.test(pw))score++;
+  if(/[^A-Za-z0-9]/.test(pw))score++;
+  if(pw.length>=14)score++;
+  return Math.min(score,4);
+}
+function updatePwdStrength(){
+  const pw=document.getElementById('suPass').value;
+  const score=scorePassword(pw);
+  const segs=[document.getElementById('pwSeg1'),document.getElementById('pwSeg2'),document.getElementById('pwSeg3'),document.getElementById('pwSeg4')];
+  const label=document.getElementById('pwStrengthLabel');
+  const tiers=['weak','weak','fair','good','strong'];
+  const tier=pw?tiers[score]:null;
+  segs.forEach((s,i)=>{s.className='pwd-bar-seg'+(tier&&i<score?' on-'+tier:'');});
+  if(!pw){label.textContent='Enter a password';label.className='pwd-strength-label';}
+  else{
+    const txt={weak:'Weak',fair:'Fair',good:'Good',strong:'Strong'}[tier];
+    label.textContent=txt+' password';label.className='pwd-strength-label '+tier;
+  }
+}
+function generateStrongPassword(){
+  const lower='abcdefghijkmnpqrstuvwxyz',upper='ABCDEFGHJKLMNPQRSTUVWXYZ',nums='23456789',syms='!@#$%^&*-_+=';
+  const all=lower+upper+nums+syms;
+  const pick=set=>set[Math.floor(Math.random()*set.length)];
+  let pw=[pick(lower),pick(upper),pick(nums),pick(syms)];
+  for(let i=0;i<10;i++)pw.push(pick(all));
+  // shuffle
+  for(let i=pw.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pw[i],pw[j]]=[pw[j],pw[i]];}
+  return pw.join('');
+}
+function showPwdSuggestion(){
+  const box=document.getElementById('pwSuggestBox');
+  document.getElementById('pwSuggestText').textContent=generateStrongPassword();
+  box.classList.add('show');
 }
 
 function doSignIn(){
@@ -1909,6 +2008,18 @@ function initAuth(){
   document.getElementById('doSignUp').onclick=doSignUp;
   document.getElementById('siGuest').onclick=goGuest;
   document.getElementById('suGuest').onclick=goGuest;
+  document.getElementById('suPass').addEventListener('input',updatePwdStrength);
+  document.getElementById('suSuggestBtn').onclick=showPwdSuggestion;
+  document.getElementById('pwRefreshSuggest').onclick=showPwdSuggestion;
+  document.getElementById('pwUseSuggest').onclick=()=>{
+    const sugg=document.getElementById('pwSuggestText').textContent;
+    const inp=document.getElementById('suPass');
+    inp.type='text';inp.value=sugg;
+    setTimeout(()=>{inp.type='password';},900);
+    updatePwdStrength();
+    document.getElementById('pwSuggestBox').classList.remove('show');
+    showToast('🔑 Strong password applied');
+  };
   document.getElementById('signOutBtn').onclick=doSignOut;
   ['siUser','siPass'].forEach(id=>{document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doSignIn();});});
   ['suUser','suEmail','suPass'].forEach(id=>{document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doSignUp();});});
@@ -1949,6 +2060,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('btnMenu').addEventListener('click',()=>{if(state.animFrame){cancelAnimationFrame(state.animFrame);state.animFrame=null;}if(state.tipRotateInterval)clearInterval(state.tipRotateInterval);showScreen('startScreen');updateStartScreen();});
   document.getElementById('btnPlayAgain').addEventListener('click',()=>initGame(state.mode,state.gameMode));
   document.getElementById('btnMainMenu').addEventListener('click',()=>{if(state.animFrame){cancelAnimationFrame(state.animFrame);state.animFrame=null;}showScreen('startScreen');updateStartScreen();});
+
+  // Account access (guest -> sign in/up)
+  document.getElementById('acctRowBtn').addEventListener('click',()=>{if(authSt.guest)openAuthFromGuest();});
+  document.getElementById('btnAcctGame').addEventListener('click',()=>{if(state.animFrame){cancelAnimationFrame(state.animFrame);state.animFrame=null;}if(state.tipRotateInterval)clearInterval(state.tipRotateInterval);openAuthFromGuest();});
 
   // Rules modal
   document.getElementById('rulesClose').addEventListener('click',()=>closeModal('rulesModal'));
